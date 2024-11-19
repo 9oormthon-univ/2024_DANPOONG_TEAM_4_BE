@@ -45,7 +45,6 @@ jobs:
       with:
         arguments: clean build -x test
 
-     # Docker build
     - name: Docker build
       run: |
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -63,8 +62,8 @@ jobs:
         envs: GITHUB_SHA
         script: |
          sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-         sudo docker pull ${{ secrets.DOCKER_USERNAME }}/skhu-debug:${GITHUB_SHA::7}
-         sudo docker tag ${{ secrets.DOCKER_USERNAME }}/skhu-debug:${GITHUB_SHA::7} sohwakhaeng
+         sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sohwakhaeng:${GITHUB_SHA::7}
+         sudo docker tag ${{ secrets.DOCKER_USERNAME }}/sohwakhaeng:${GITHUB_SHA::7} sohwakhaeng
          sudo docker-compose up -d
          sudo docker image prune -f
 
