@@ -70,4 +70,8 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     public String getName() {
         return user.getUsername();
     }
+
+    public User getUser() {
+        return this.user;
+    }
 }

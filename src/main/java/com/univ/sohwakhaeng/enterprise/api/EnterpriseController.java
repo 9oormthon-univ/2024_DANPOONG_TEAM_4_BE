@@ -36,6 +36,6 @@ public class EnterpriseController {
             @RequestParam int limit
     ){
         return BaseResponse.success(
-                SuccessCode.GET_ENTERPRISE_OVERVIEW, enterPriseService.getEnterprisesByCategory(category, PageRequest.of(size, limit)));
+                SuccessCode.GET_ENTERPRISE_OVERVIEW, enterPriseService.getEnterprisesByCategory(category, PageRequest.of(limit, size)));
     }
 }

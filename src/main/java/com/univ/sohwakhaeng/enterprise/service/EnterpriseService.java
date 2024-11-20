@@ -34,6 +34,11 @@ public class EnterpriseService {
         return new PagedResponseDto<>(enterpriseOverviewDtos);
     }
 
+    @Transactional(readOnly = true)
+    public Enterprise getEnterpriseEntityById(Long id) throws EnterpriseNotFoundException {
+        return findEnterpriseEntityById(id);
+    }
+
     private Enterprise findEnterpriseEntityById(Long id) throws EnterpriseNotFoundException {
         return enterpriseRepository.findById(id)
                 .orElseThrow(() -> new EnterpriseNotFoundException(ENTERPRISE_NOT_FOUND.getMessage()));
