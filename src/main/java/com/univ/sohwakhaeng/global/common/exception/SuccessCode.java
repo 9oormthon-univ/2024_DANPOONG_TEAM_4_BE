@@ -21,6 +21,9 @@ public enum SuccessCode {
     GET_ALL_BOARD(HttpStatus.OK, "전체 게시판 조회 성공"),
     POST_UPLOADED(HttpStatus.OK, "게시글 업로드 성공"),
     GET_MY_POSTS(HttpStatus.OK, "내가 쓴 글 조회 성공"),
+
+    // Enterprise 관련
+    GET_ENTERPRISE_DETAILS(HttpStatus.OK, "상점 상세 정보 조회 성공")
     ;
 
     private final HttpStatus httpStatus;
