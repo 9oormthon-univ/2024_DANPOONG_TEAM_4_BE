@@ -17,10 +17,10 @@ public enum SuccessCode {
     USER_LOGIN_SUCCESS(HttpStatus.OK, "유저 로그인 성공"),
     USER_PROFILE_SUCCESS(HttpStatus.OK, "유저 프로필 조회 성공"),
     USER_DELETE_SUCCESS(HttpStatus.OK, "회원 탈퇴 완료"),
-    GET_POSTS_OF_BOARD(HttpStatus.OK, "개별 게시판 글 조회 성공"),
-    GET_ALL_BOARD(HttpStatus.OK, "전체 게시판 조회 성공"),
-    POST_UPLOADED(HttpStatus.OK, "게시글 업로드 성공"),
-    GET_MY_POSTS(HttpStatus.OK, "내가 쓴 글 조회 성공"),
+
+    // Contract 관련
+    POST_CONTRACT(HttpStatus.OK, "계약 등록 성공"),
+
 
     // Enterprise 관련
     GET_ENTERPRISE_DETAILS(HttpStatus.OK, "상점 상세 정보 조회 성공"),

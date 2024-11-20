@@ -1,5 +1,3 @@
-server:
-  port: 1234
 spring:
   application:
     name: sohwakhaeng
@@ -45,3 +43,5 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
             jwk-set-uri: https://kapi.kakao.com/v1/user/access_token_info
+server:
+  port: 8080
