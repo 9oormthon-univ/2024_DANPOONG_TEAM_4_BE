@@ -49,7 +49,8 @@ public class SecurityConfig extends Exception {
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(FormLoginConfigurer::disable)
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/api/{provider}/token", "/api/user/logout").permitAll()
+                        .requestMatchers("/api/**").authenticated()
                 )
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
