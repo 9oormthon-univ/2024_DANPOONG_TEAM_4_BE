@@ -1,4 +1,7 @@
 package com.univ.sohwakhaeng.enterprise.repository;
 
-public interface EnterpriseRepository {
+import com.univ.sohwakhaeng.enterprise.Enterprise;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EnterpriseRepository extends JpaRepository<Enterprise, Long> {
 }
