@@ -3,7 +3,7 @@ package com.univ.sohwakhaeng.enterprise.api.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.univ.sohwakhaeng.enterprise.Category;
 import com.univ.sohwakhaeng.enterprise.Enterprise;
-import com.univ.sohwakhaeng.product.api.dto.ProductDto;
+import com.univ.sohwakhaeng.product.api.dto.ProductResponseDto;
 import java.util.List;
 
 public record EnterpriseDetailDto(
@@ -35,7 +35,7 @@ public record EnterpriseDetailDto(
         String address,
 
         @JsonProperty("products")
-        List<ProductDto> products
+        List<ProductResponseDto> products
 ) {
 
     public static EnterpriseDetailDto fromEntity(Enterprise enterprise) {
@@ -50,7 +50,7 @@ public record EnterpriseDetailDto(
                 enterprise.getLongitude(),
                 enterprise.getAddress(),
                 enterprise.getProducts().stream()
-                        .map(ProductDto::fromEntity)
+                        .map(ProductResponseDto::fromEntity)
                         .toList()
         );
     }

@@ -25,6 +25,9 @@ public enum SuccessCode {
     // Enterprise 관련
     GET_ENTERPRISE_DETAILS(HttpStatus.OK, "상점 상세 정보 조회 성공"),
     GET_ENTERPRISE_OVERVIEW(HttpStatus.OK, "상점 기본 정보 조회 성공"),
+
+    // Cart 관련
+    POST_CART(HttpStatus.OK, "장바구니 등록 성공")
     ;
 
     private final HttpStatus httpStatus;

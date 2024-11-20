@@ -1,7 +1,7 @@
 package com.univ.sohwakhaeng.cart;
 
 import com.univ.sohwakhaeng.enterprise.Enterprise;
-import com.univ.sohwakhaeng.productorder.ProductOrder;
+import com.univ.sohwakhaeng.item.Item;
 import com.univ.sohwakhaeng.user.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,12 +15,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Cart {
 
     @Id
@@ -37,6 +41,16 @@ public class Cart {
     private User user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ProductOrder> productOrders;
+    private List<Item> items;
 
+    public static Cart createCart(Enterprise enterprise, User user) {
+        return Cart.builder()
+                .enterprise(enterprise)
+                .user(user)
+                .build();
+    }
+
+    public void updateItems(List<Item> items) {
+        this.items = items;
+    }
 }
