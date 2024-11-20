@@ -9,10 +9,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 
 @Entity
 @Getter
@@ -29,6 +32,9 @@ public class Enterprise {
 
     @Column(name = "enterprise_name")
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     private String description;
 

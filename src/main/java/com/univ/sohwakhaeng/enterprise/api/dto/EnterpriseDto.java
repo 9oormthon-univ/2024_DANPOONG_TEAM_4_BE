@@ -1,6 +1,7 @@
 package com.univ.sohwakhaeng.enterprise.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.univ.sohwakhaeng.enterprise.Category;
 import com.univ.sohwakhaeng.enterprise.Enterprise;
 import com.univ.sohwakhaeng.product.api.dto.ProductDto;
 import java.util.List;
@@ -14,6 +15,9 @@ public record EnterpriseDto(
 
         @JsonProperty("enterprise_name")
         String name,
+
+        @JsonProperty("category")
+        Category category,
 
         @JsonProperty("description")
         String description,
@@ -39,6 +43,7 @@ public record EnterpriseDto(
                 enterprise.getId(),
                 enterprise.getImageUrl(),
                 enterprise.getName(),
+                enterprise.getCategory(),
                 enterprise.getDescription(),
                 enterprise.getStar(),
                 enterprise.getLatitude(),
