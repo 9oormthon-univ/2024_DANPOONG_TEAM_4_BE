@@ -23,7 +23,8 @@ public enum SuccessCode {
     GET_MY_POSTS(HttpStatus.OK, "내가 쓴 글 조회 성공"),
 
     // Enterprise 관련
-    GET_ENTERPRISE_DETAILS(HttpStatus.OK, "상점 상세 정보 조회 성공")
+    GET_ENTERPRISE_DETAILS(HttpStatus.OK, "상점 상세 정보 조회 성공"),
+    GET_ENTERPRISE_OVERVIEW(HttpStatus.OK, "상점 기본 정보 조회 성공"),
     ;
 
     private final HttpStatus httpStatus;

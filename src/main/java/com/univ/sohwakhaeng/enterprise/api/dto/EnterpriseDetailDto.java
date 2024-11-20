@@ -6,7 +6,7 @@ import com.univ.sohwakhaeng.enterprise.Enterprise;
 import com.univ.sohwakhaeng.product.api.dto.ProductDto;
 import java.util.List;
 
-public record EnterpriseDto(
+public record EnterpriseDetailDto(
         @JsonProperty("enterprise_id")
         Long id,
 
@@ -38,8 +38,8 @@ public record EnterpriseDto(
         List<ProductDto> products
 ) {
 
-    public static EnterpriseDto fromEntity(Enterprise enterprise) {
-        return new EnterpriseDto(
+    public static EnterpriseDetailDto fromEntity(Enterprise enterprise) {
+        return new EnterpriseDetailDto(
                 enterprise.getId(),
                 enterprise.getImageUrl(),
                 enterprise.getName(),
