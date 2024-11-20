@@ -16,8 +16,8 @@ public class AuthController {
 
     private final OAuth2LoginService oAuth2LoginService;
 
-    @PostMapping("/api/{provider}/token")
-    public BaseResponse<TokenDto> auth(@PathVariable String provider, @RequestParam String code) {
+    @PostMapping("/public/{provider}/token")
+    public BaseResponse<TokenDto> auth(@PathVariable(value = "provider") String provider, @RequestParam(value = "code") String code) {
         return BaseResponse.success(
                 SuccessCode.USER_LOGIN_SUCCESS, oAuth2LoginService.proccessOAuth2Login(provider, code));
     }

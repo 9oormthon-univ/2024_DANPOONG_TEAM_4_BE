@@ -29,12 +29,6 @@ public class SecurityConfig extends Exception {
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
-    private static final String[] ALLOWED_URL = {
-            "/swagger-ui/**",
-            "/swagger-resources/**",
-            "/v3/api-docs/**"
-    };
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -55,9 +49,8 @@ public class SecurityConfig extends Exception {
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(FormLoginConfigurer::disable)
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers(ALLOWED_URL).permitAll()
-                        .requestMatchers("/api/{provider}/token", "/api/user/logout").permitAll()
                         .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -69,7 +62,7 @@ public class SecurityConfig extends Exception {
                                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 )
                 .logout((logout) -> logout
-                        .logoutUrl("/api/user/logout")
+                        .logoutUrl("/public/user/logout")
                         .logoutSuccessHandler(customLogoutSuccessHandler)
                 );
 
