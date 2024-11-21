@@ -100,6 +100,7 @@ public class ContractService {
                 .profileImgUrl(contract.getEnterprise().getImageUrl())
                 .enterpriseName(contract.getEnterprise().getName())
                 .products(contract.getContractProducts().stream().map(this::convertToDtoFromContractProducts).toList())
+                .category(contract.getEnterprise().getCategory().toString())
                 .build();
     }
 
