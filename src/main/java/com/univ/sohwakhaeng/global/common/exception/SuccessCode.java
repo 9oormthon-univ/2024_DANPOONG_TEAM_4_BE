@@ -28,8 +28,12 @@ public enum SuccessCode {
 
     // Cart 관련
     POST_CART(HttpStatus.OK, "장바구니 등록 성공"),
-    GET_CONTRACTS(HttpStatus.OK, "계약 조회 성공"),;
-
+    GET_CART(HttpStatus.OK, "장바구니 전체 조회 성공"),
+  
+    // Contract 관련
+    GET_CONTRACTS(HttpStatus.OK, "계약 조회 성공"),
+  
+  ;
     private final HttpStatus httpStatus;
     private final String message;
 

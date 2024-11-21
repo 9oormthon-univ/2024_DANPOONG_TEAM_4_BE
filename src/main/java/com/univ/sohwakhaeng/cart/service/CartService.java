@@ -2,6 +2,7 @@ package com.univ.sohwakhaeng.cart.service;
 
 import com.univ.sohwakhaeng.cart.Cart;
 import com.univ.sohwakhaeng.cart.api.dto.CartRequestDto;
+import com.univ.sohwakhaeng.cart.api.dto.CartResponseDto;
 import com.univ.sohwakhaeng.cart.repository.CartRepository;
 import com.univ.sohwakhaeng.enterprise.Enterprise;
 import com.univ.sohwakhaeng.enterprise.exception.EnterpriseNotFoundException;
@@ -11,6 +12,7 @@ import com.univ.sohwakhaeng.item.api.dto.ItemRequestDto;
 import com.univ.sohwakhaeng.item.service.ItemService;
 import com.univ.sohwakhaeng.user.User;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +36,19 @@ public class CartService {
         return saveCartEntity(cart);
     }
 
+    @Transactional(readOnly = true)
+    public List<CartResponseDto> getMyCarts(User user) {
+        List<Cart> carts = getAllCartByUserId(user.getId());
+        return carts.stream()
+                .map(CartResponseDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
     private Long saveCartEntity(Cart cart) {
         return cartRepository.save(cart).getId();
     }
 
+    private List<Cart> getAllCartByUserId(Long userId) {
+        return cartRepository.findAllByUserId(userId);
+    }
 }
