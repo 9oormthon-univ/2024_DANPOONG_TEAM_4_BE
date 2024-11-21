@@ -27,7 +27,8 @@ public enum SuccessCode {
     GET_ENTERPRISE_OVERVIEW(HttpStatus.OK, "상점 기본 정보 조회 성공"),
 
     // Cart 관련
-    POST_CART(HttpStatus.OK, "장바구니 등록 성공")
+    POST_CART(HttpStatus.OK, "장바구니 등록 성공"),
+    GET_CART(HttpStatus.OK, "장바구니 전체 조회 성공")
     ;
 
     private final HttpStatus httpStatus;
