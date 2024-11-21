@@ -1,4 +1,4 @@
-package com.univ.sohwakhaeng.contract.dto;
+package com.univ.sohwakhaeng.contract.api.dto;
 
 import java.util.List;
 
