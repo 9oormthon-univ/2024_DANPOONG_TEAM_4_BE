@@ -1,6 +1,7 @@
 package com.univ.sohwakhaeng.contract.api;
 
 import com.univ.sohwakhaeng.auth.domain.PrincipalDetails;
+import com.univ.sohwakhaeng.contract.api.dto.ContractDetailDto;
 import com.univ.sohwakhaeng.contract.api.dto.ContractReqDto;
 import com.univ.sohwakhaeng.contract.api.dto.ContractsInfoDto;
 import com.univ.sohwakhaeng.contract.service.ContractService;
@@ -31,5 +32,10 @@ public class ContractController {
                                                                          @RequestParam int limit
     ) {
         return BaseResponse.success(SuccessCode.GET_CONTRACTS, contractService.getMyContracts(principal, PageRequest.of(page, limit)));
+    }
+
+    @GetMapping("/contracts/{contractId}")
+    public BaseResponse<ContractDetailDto> getContract(@PathVariable Long contractId) {
+        return BaseResponse.success(SuccessCode.GET_CONTRACTS, contractService.getContractDetail(contractId));
     }
 }
