@@ -3,15 +3,13 @@ package com.univ.sohwakhaeng.contract.domain;
 import com.univ.sohwakhaeng.enterprise.Enterprise;
 import com.univ.sohwakhaeng.user.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Contract {

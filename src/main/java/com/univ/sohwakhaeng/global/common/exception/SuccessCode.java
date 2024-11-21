@@ -19,7 +19,7 @@ public enum SuccessCode {
     USER_DELETE_SUCCESS(HttpStatus.OK, "회원 탈퇴 완료"),
 
     // Contract 관련
-    POST_CONTRACT(HttpStatus.OK, "계약 등록 성공"),
+    POST_CONTRACT(HttpStatus.CREATED, "계약 등록 성공"),
 
 
     // Enterprise 관련
@@ -28,9 +28,12 @@ public enum SuccessCode {
 
     // Cart 관련
     POST_CART(HttpStatus.OK, "장바구니 등록 성공"),
-    GET_CART(HttpStatus.OK, "장바구니 전체 조회 성공")
-    ;
-
+    GET_CART(HttpStatus.OK, "장바구니 전체 조회 성공"),
+  
+    // Contract 관련
+    GET_CONTRACTS(HttpStatus.OK, "계약 조회 성공"),
+  
+  ;
     private final HttpStatus httpStatus;
     private final String message;
 
