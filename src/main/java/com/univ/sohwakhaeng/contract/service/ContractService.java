@@ -1,6 +1,8 @@
 package com.univ.sohwakhaeng.contract.service;
 
 import com.univ.sohwakhaeng.auth.domain.PrincipalDetails;
+import com.univ.sohwakhaeng.contract.api.dto.ContractDetailDto;
+import com.univ.sohwakhaeng.contract.api.dto.ContractProducsResDto;
 import com.univ.sohwakhaeng.contract.api.dto.ContractReqDto;
 import com.univ.sohwakhaeng.contract.api.dto.ContractsInfoDto;
 import com.univ.sohwakhaeng.contract.domain.Contract;
@@ -68,7 +70,7 @@ public class ContractService {
     public PagedResponseDto<ContractsInfoDto> getMyContracts(PrincipalDetails principal, Pageable pageable) {
         User user = principal.getUser();
         Page<Contract> contracts = getPagedContractsByUser(pageable, user);
-        Page<ContractsInfoDto> contractsInfoDtos = contracts.map(this::convertToDtoFromEntity);
+        Page<ContractsInfoDto> contractsInfoDtos = contracts.map(this::convertToDtoFromContract);
         return new PagedResponseDto<>(contractsInfoDtos);
     }
 
@@ -76,13 +78,35 @@ public class ContractService {
         return contractRepository.getPagedContractsByUser(user, pageable);
     }
 
-    private ContractsInfoDto convertToDtoFromEntity(Contract contract) {
+    private ContractsInfoDto convertToDtoFromContract(Contract contract) {
         return ContractsInfoDto.builder()
                 .contractId(contract.getId())
                 .enterpriseId(contract.getEnterprise().getId())
                 .enterpriseName(contract.getEnterprise().getName())
                 .category(contract.getEnterprise().getCategory().toString())
                 .profileImage(contract.getEnterprise().getImageUrl())
+                .build();
+    }
+
+    //계약 상세 조회
+    @Transactional(readOnly = true)
+    public ContractDetailDto getContractDetail(long contractId) {
+        Contract contract = contractRepository.findById(contractId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 계약이 존재하지 않습니다."));
+        return ContractDetailDto.builder()
+                .enterpriseId(contract.getEnterprise().getId())
+                .requestTerm(contract.getRequestedTerm())
+                .reqularDelivery(contract.getDeliveryWeek() + " " + contract.getDeliveryDay())
+                .profileImgUrl(contract.getEnterprise().getImageUrl())
+                .enterpriseName(contract.getEnterprise().getName())
+                .products(contract.getContractProducts().stream().map(this::convertToDtoFromContractProducts).toList())
+                .build();
+    }
+
+    private ContractProducsResDto convertToDtoFromContractProducts(ContractProducts contractProduct) {
+        return ContractProducsResDto.builder()
+                .name(contractProduct.getProductName())
+                .quantity(contractProduct.getQuantity())
                 .build();
     }
 }
