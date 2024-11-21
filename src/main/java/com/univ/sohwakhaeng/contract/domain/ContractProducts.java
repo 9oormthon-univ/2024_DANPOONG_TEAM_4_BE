@@ -2,12 +2,10 @@ package com.univ.sohwakhaeng.contract.domain;
 
 import com.univ.sohwakhaeng.product.Product;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
+@Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ContractProducts {
