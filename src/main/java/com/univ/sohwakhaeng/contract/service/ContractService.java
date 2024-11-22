@@ -102,7 +102,7 @@ public class ContractService {
         return ContractDetailDto.builder()
                 .enterpriseId(contract.getEnterprise().getId())
                 .requestTerm(contract.getRequestedTerm())
-                .reqularDelivery(contract.getDeliveryWeek() + " " + contract.getDeliveryDay())
+                .regularDelivery(contract.getDeliveryWeek() + " " + contract.getDeliveryDay())
                 .profileImgUrl(enterpriseImageUrl)
                 .enterpriseName(contract.getEnterprise().getName())
                 .products(contract.getContractProducts().stream().map(this::convertToDtoFromContractProducts).toList())
