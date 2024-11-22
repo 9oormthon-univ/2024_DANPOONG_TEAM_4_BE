@@ -16,6 +16,9 @@ public record ProductResponseDto(
         @JsonProperty("unit")
         String unit,
 
+        @JsonProperty("imageUrl")
+        String imageUrl,
+
         @JsonProperty("product_price")
         Integer price
 ) {
@@ -26,6 +29,7 @@ public record ProductResponseDto(
                 product.getEnterprise() != null ? product.getEnterprise().getId() : null,
                 product.getName(),
                 product.getUnit(),
+                product.getImageUrl(),
                 product.getPrice()
         );
     }

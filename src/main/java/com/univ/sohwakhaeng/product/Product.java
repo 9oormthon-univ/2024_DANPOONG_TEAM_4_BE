@@ -31,6 +31,8 @@ public class Product {
 
     private String unit;
 
+    private String imageUrl;
+
     @Column(name = "product_price")
     private Integer price;
 
