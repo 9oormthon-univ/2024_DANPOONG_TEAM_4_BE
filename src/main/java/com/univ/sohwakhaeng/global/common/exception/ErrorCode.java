@@ -33,6 +33,8 @@ public enum ErrorCode {
      * 404 NOT FOUND
      * */
     USER_NOT_FOUND(HttpStatus.NO_CONTENT, "해당 유저가 존재하지 않습니다"),
+    ENTERPRISE_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 가게가 존재하지 않습니다"),
+    PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 상품이 존재하지 않습니다"),
     /**
      * 500 INTERNAL SERVER ERROR
      */

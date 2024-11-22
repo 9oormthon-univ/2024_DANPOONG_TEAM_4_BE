@@ -49,7 +49,8 @@ public class SecurityConfig extends Exception {
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(FormLoginConfigurer::disable)
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -61,7 +62,7 @@ public class SecurityConfig extends Exception {
                                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 )
                 .logout((logout) -> logout
-                        .logoutUrl("/api/user/logout")
+                        .logoutUrl("/public/user/logout")
                         .logoutSuccessHandler(customLogoutSuccessHandler)
                 );
 
