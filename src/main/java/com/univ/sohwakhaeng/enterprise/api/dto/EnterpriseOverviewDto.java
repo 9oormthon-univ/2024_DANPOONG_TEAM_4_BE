@@ -18,10 +18,10 @@ public record EnterpriseOverviewDto(
         Category category
 ) {
 
-    public static EnterpriseOverviewDto fromEntity(Enterprise enterprise) {
+    public static EnterpriseOverviewDto fromEntity(Enterprise enterprise, String imageUrl) {
         return new EnterpriseOverviewDto(
                 enterprise.getId(),
-                enterprise.getImageUrl(),
+                imageUrl,
                 enterprise.getName(),
                 enterprise.getCategory()
         );

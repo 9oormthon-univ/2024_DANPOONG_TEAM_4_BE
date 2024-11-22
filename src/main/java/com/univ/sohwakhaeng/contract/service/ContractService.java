@@ -12,6 +12,7 @@ import com.univ.sohwakhaeng.contract.domain.repository.ContractProductsRepositor
 import com.univ.sohwakhaeng.contract.domain.repository.ContractRepository;
 import com.univ.sohwakhaeng.enterprise.Enterprise;
 import com.univ.sohwakhaeng.enterprise.repository.EnterpriseRepository;
+import com.univ.sohwakhaeng.enterprise.service.EnterpriseService;
 import com.univ.sohwakhaeng.global.common.dto.PagedResponseDto;
 import com.univ.sohwakhaeng.product.Product;
 import com.univ.sohwakhaeng.product.repository.ProductRepository;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ContractService {
 
+    private final EnterpriseService enterpriseService;
     private final ContractRepository contractRepository;
     private final ContractProductsRepository contractProductsRepository;
     private final EnterpriseRepository enterpriseRepository;
@@ -79,12 +81,14 @@ public class ContractService {
     }
 
     private ContractsInfoDto convertToDtoFromContract(Contract contract) {
+        String enterpriseImageUrl = enterpriseService.getEnterpriseImageUrl(contract.getEnterprise().getName());
+
         return ContractsInfoDto.builder()
                 .contractId(contract.getId())
                 .enterpriseId(contract.getEnterprise().getId())
                 .enterpriseName(contract.getEnterprise().getName())
                 .category(contract.getEnterprise().getCategory().toString())
-                .profileImage(contract.getEnterprise().getImageUrl())
+                .profileImage(enterpriseImageUrl)
                 .build();
     }
 
@@ -93,11 +97,13 @@ public class ContractService {
     public ContractDetailDto getContractDetail(long contractId) {
         Contract contract = contractRepository.findById(contractId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 계약이 존재하지 않습니다."));
+
+        String enterpriseImageUrl = enterpriseService.getEnterpriseImageUrl(contract.getEnterprise().getName());
         return ContractDetailDto.builder()
                 .enterpriseId(contract.getEnterprise().getId())
                 .requestTerm(contract.getRequestedTerm())
                 .reqularDelivery(contract.getDeliveryWeek() + " " + contract.getDeliveryDay())
-                .profileImgUrl(contract.getEnterprise().getImageUrl())
+                .profileImgUrl(enterpriseImageUrl)
                 .enterpriseName(contract.getEnterprise().getName())
                 .products(contract.getContractProducts().stream().map(this::convertToDtoFromContractProducts).toList())
                 .category(contract.getEnterprise().getCategory().toString())

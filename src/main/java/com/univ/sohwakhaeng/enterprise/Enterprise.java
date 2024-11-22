@@ -27,9 +27,6 @@ public class Enterprise {
     @Column(name = "enterprise_id")
     private Long id;
 
-    @Column(name = "enterprise_imageUrl")
-    private String imageUrl;
-
     @Column(name = "enterprise_name")
     private String name;
 
