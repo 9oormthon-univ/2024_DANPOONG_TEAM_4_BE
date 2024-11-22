@@ -10,8 +10,11 @@ import com.univ.sohwakhaeng.enterprise.service.EnterpriseService;
 import com.univ.sohwakhaeng.item.Item;
 import com.univ.sohwakhaeng.item.api.dto.ItemRequestDto;
 import com.univ.sohwakhaeng.item.service.ItemService;
+import com.univ.sohwakhaeng.product.Product;
+import com.univ.sohwakhaeng.product.service.ProductService;
 import com.univ.sohwakhaeng.user.User;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ public class CartService {
     private final CartRepository cartRepository;
     private final EnterpriseService enterpriseService;
     private final ItemService itemService;
+    private final ProductService productService;
 
     @Transactional
     public Long saveCart(CartRequestDto requestDto, User user) throws EnterpriseNotFoundException {
@@ -42,7 +46,8 @@ public class CartService {
         return carts.stream()
                 .map(cart -> {
                     String enterpriseImageUrl = enterpriseService.getEnterpriseImageUrl(cart.getEnterprise().getName());
-                    return CartResponseDto.fromEntity(cart, enterpriseImageUrl);
+                    Function<Product, String> getProductImageUrlFunction = product -> productService.getProductImageUrl(product.getName());
+                    return CartResponseDto.fromEntity(cart, enterpriseImageUrl, getProductImageUrlFunction);
                 })
                 .collect(Collectors.toList());
     }
