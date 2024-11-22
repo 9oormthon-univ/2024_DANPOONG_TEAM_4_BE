@@ -19,7 +19,7 @@ public class AuthController {
 
     private final OAuth2LoginService oAuth2LoginService;
 
-    @GetMapping("/oauth/callback/kakao")
+    @GetMapping("/kakao")
     public BaseResponse<Void> auth(@RequestParam(value = "code") String code, HttpServletResponse response) throws IOException {
         String token = oAuth2LoginService.proccessOAuth2Login(code).accessToken();
         String redirectUrl = "http://localhost:5173/main?token=" + token;
