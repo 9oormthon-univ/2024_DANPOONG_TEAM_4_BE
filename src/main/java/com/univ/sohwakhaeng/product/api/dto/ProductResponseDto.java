@@ -16,16 +16,20 @@ public record ProductResponseDto(
         @JsonProperty("unit")
         String unit,
 
+        @JsonProperty("imageUrl")
+        String imageUrl,
+
         @JsonProperty("product_price")
         Integer price
 ) {
 
-    public static ProductResponseDto fromEntity(Product product) {
+    public static ProductResponseDto fromEntity(Product product, String imageUrl) {
         return new ProductResponseDto(
                 product.getId(),
                 product.getEnterprise() != null ? product.getEnterprise().getId() : null,
                 product.getName(),
                 product.getUnit(),
+                imageUrl,
                 product.getPrice()
         );
     }

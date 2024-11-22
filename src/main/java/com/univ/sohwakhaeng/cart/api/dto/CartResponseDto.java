@@ -13,9 +13,9 @@ public record CartResponseDto(
         @JsonProperty("items")
         List<ItemRequestDto> itemRequestDtoList
 ) {
-    public static CartResponseDto fromEntity(Cart cart) {
+    public static CartResponseDto fromEntity(Cart cart, String enterpriseImageUrl) {
         return new CartResponseDto(
-                EnterpriseOverviewDto.fromEntity(cart.getEnterprise()),
+                EnterpriseOverviewDto.fromEntity(cart.getEnterprise(), enterpriseImageUrl),
                 cart.getItems().stream()
                         .map(ItemRequestDto::fromEntity)
                         .toList()

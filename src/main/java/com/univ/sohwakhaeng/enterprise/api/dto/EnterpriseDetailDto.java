@@ -3,8 +3,10 @@ package com.univ.sohwakhaeng.enterprise.api.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.univ.sohwakhaeng.enterprise.Category;
 import com.univ.sohwakhaeng.enterprise.Enterprise;
+import com.univ.sohwakhaeng.product.Product;
 import com.univ.sohwakhaeng.product.api.dto.ProductResponseDto;
 import java.util.List;
+import java.util.function.Function;
 
 public record EnterpriseDetailDto(
         @JsonProperty("enterprise_id")
@@ -38,10 +40,10 @@ public record EnterpriseDetailDto(
         List<ProductResponseDto> products
 ) {
 
-    public static EnterpriseDetailDto fromEntity(Enterprise enterprise) {
+    public static EnterpriseDetailDto fromEntity(Enterprise enterprise, String imageUrl, Function<Product, String> getProductImageUrl) {
         return new EnterpriseDetailDto(
                 enterprise.getId(),
-                enterprise.getImageUrl(),
+                imageUrl,
                 enterprise.getName(),
                 enterprise.getCategory(),
                 enterprise.getDescription(),
@@ -50,7 +52,10 @@ public record EnterpriseDetailDto(
                 enterprise.getLongitude(),
                 enterprise.getAddress(),
                 enterprise.getProducts().stream()
-                        .map(ProductResponseDto::fromEntity)
+                        .map(product -> {
+                            String productImageUrl = getProductImageUrl.apply(product);
+                            return ProductResponseDto.fromEntity(product, productImageUrl);
+                        })
                         .toList()
         );
     }

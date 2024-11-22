@@ -40,7 +40,10 @@ public class CartService {
     public List<CartResponseDto> getMyCarts(User user) {
         List<Cart> carts = getAllCartByUserId(user.getId());
         return carts.stream()
-                .map(CartResponseDto::fromEntity)
+                .map(cart -> {
+                    String enterpriseImageUrl = enterpriseService.getEnterpriseImageUrl(cart.getEnterprise().getName());
+                    return CartResponseDto.fromEntity(cart, enterpriseImageUrl);
+                })
                 .collect(Collectors.toList());
     }
 
