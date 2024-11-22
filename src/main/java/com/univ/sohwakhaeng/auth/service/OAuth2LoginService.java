@@ -46,14 +46,11 @@ public class OAuth2LoginService {
     private static final String AUTHORIZATION_CODE = "authorization_code";
 
     @Transactional
-    public TokenDto proccessOAuth2Login(String provider, String code) {
-        if (provider.equals(SocialType.KAKAO.toString())) {
-            KakaoTokenDto kakaoTokenDto = getToken(code, kakaoClientId, kakaoClientSecret, redirectUrlKakao,
-                    "https://kauth.kakao.com/oauth/token", KakaoTokenDto.class);
-            Map<String, Object> attributes = getUserInfo(kakaoTokenDto.accessToken(), "https://kapi.kakao.com/v2/user/me");
-            return authenticateUser(new KakaoUserInfo(attributes));
-        }
-        throw new IllegalArgumentException("지원하지 않는 소셜 로그인입니다.");
+    public TokenDto proccessOAuth2Login(String code) {
+        KakaoTokenDto kakaoTokenDto = getToken(code, kakaoClientId, kakaoClientSecret, redirectUrlKakao,
+                "https://kauth.kakao.com/oauth/token", KakaoTokenDto.class);
+        Map<String, Object> attributes = getUserInfo(kakaoTokenDto.accessToken(), "https://kapi.kakao.com/v2/user/me");
+        return authenticateUser(new KakaoUserInfo(attributes));
     }
 
     private <T> T getToken(String code, String clientId, String clientSecret, String redirectUri, String tokenUri,
