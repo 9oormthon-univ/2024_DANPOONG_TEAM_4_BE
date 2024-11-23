@@ -63,7 +63,6 @@ server:
     key-store-type: pkcs12
     key-alias: tomcat
     enabled: true
-
-  iamport:
-    apikey: ${IAMPORT_API_KEY}
-    secretkey: ${IAMPORT_SECRET_KEY}
+iamport:
+  apikey: ${IAMPORT_API_KEY}
+  secretkey: ${IAMPORT_SECRET_KEY}
