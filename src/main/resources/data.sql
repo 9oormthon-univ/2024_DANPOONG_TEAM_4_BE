@@ -328,7 +328,7 @@ VALUES
     (216, 36, '홍단심', '1송이', 3800);
 
 -- User 테이블 더미 데이터
-INSERT INTO User (user_id, user_name, user_password, user_nickname, authority, social_type, name, user_img)
+INSERT INTO user (user_id, user_name, user_password, user_nickname, authority, social_type, name, user_img)
 VALUES
     (1, 'user1', 'password1', 'nickname1', 'ROLE_USER', 'KAKAO', 'User One', 'img1.jpg'),
     (2, 'user2', 'password2', 'nickname2', 'ROLE_USER', 'KAKAO', 'User Two', 'img2.jpg'),
