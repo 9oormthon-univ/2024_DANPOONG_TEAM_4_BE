@@ -42,7 +42,6 @@ jobs:
         docker tag ${{ secrets.DOCKER_IMG_NAME }} ${{ secrets.DOCKER_IMG_NAME }}:${GITHUB_SHA::7}
         docker push ${{ secrets.DOCKER_IMG_NAME }}:${GITHUB_SHA::7}
 
-
     - name: Deploy
       uses: appleboy/ssh-action@v1.0.3
       with:
