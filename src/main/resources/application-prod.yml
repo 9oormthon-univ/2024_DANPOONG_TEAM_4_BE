@@ -64,3 +64,6 @@ server:
     key-alias: tomcat
     enabled: true
 
+  iamport:
+    apikey: ${IAMPORT_API_KEY}
+    secretkey: ${IAMPORT_SECRET_KEY}

@@ -19,6 +19,7 @@ public enum ErrorCode {
     REQUEST_METHOD_VALIDATION_EXCEPTION(HttpStatus.BAD_REQUEST, "요청 메소드가 잘못됐습니다."),
     REQUEST_PARAMETER_VALIDATION_EXCEPTION(HttpStatus.BAD_REQUEST, "요청 파라미터가 잘못됐습니다."),
     BAD_CREDENTIALS(HttpStatus.BAD_REQUEST, "아이디 또는 비밀번호가 잘못됐습니다"),
+    PAYMENT_FAIL(HttpStatus.BAD_REQUEST, "결제 실패"),
     /**
      * 401 UNAUTHORIZED
      */
