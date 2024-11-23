@@ -54,10 +54,7 @@ cloud:
       static: ${AWS_REGION}
     stack:
       auto: false
-server:
-  ssl:
-    key-store: ${KEY_STORE}
-    key-store-password: ${KEY_STORE_PASSWORD}
-    key-store-type: pkcs12
-    key-alias: tomcat
-    enabled: true
+
+iamport:
+  apikey: ${IAMPORT_API_KEY}
+  secretkey: ${IAMPORT_SECRET_KEY}

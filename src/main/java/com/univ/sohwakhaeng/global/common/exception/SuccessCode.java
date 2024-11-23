@@ -20,7 +20,7 @@ public enum SuccessCode {
 
     // Contract 관련
     POST_CONTRACT(HttpStatus.CREATED, "계약 등록 성공"),
-
+    GET_CONTRACTS(HttpStatus.OK, "계약 조회 성공"),
 
     // Enterprise 관련
     GET_ENTERPRISE_DETAILS(HttpStatus.OK, "상점 상세 정보 조회 성공"),
@@ -30,8 +30,8 @@ public enum SuccessCode {
     POST_CART(HttpStatus.OK, "장바구니 등록 성공"),
     GET_CART(HttpStatus.OK, "장바구니 전체 조회 성공"),
   
-    // Contract 관련
-    GET_CONTRACTS(HttpStatus.OK, "계약 조회 성공"),
+    // Payment 관련
+    POST_PAYMENT(HttpStatus.OK, "결제 성공"),
   
   ;
     private final HttpStatus httpStatus;
