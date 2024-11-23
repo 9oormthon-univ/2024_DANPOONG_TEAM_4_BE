@@ -1,16 +1,17 @@
 package com.univ.sohwakhaeng.auth.api;
 
 
-import com.univ.sohwakhaeng.global.common.dto.BaseResponse;
-import com.univ.sohwakhaeng.global.common.exception.SuccessCode;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import com.univ.sohwakhaeng.auth.api.dto.KakaoLoginDto;
 import com.univ.sohwakhaeng.auth.api.dto.TokenDto;
 import com.univ.sohwakhaeng.auth.service.OAuth2LoginService;
-import org.springframework.web.bind.annotation.*;
-
+import com.univ.sohwakhaeng.global.common.dto.BaseResponse;
+import com.univ.sohwakhaeng.global.common.exception.SuccessCode;
 import java.io.IOException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
@@ -19,11 +20,8 @@ public class AuthController {
 
     private final OAuth2LoginService oAuth2LoginService;
 
-    @GetMapping("/kakao")
-    public BaseResponse<Void> auth(@RequestParam(value = "code") String code, HttpServletResponse response) throws IOException {
-        String token = oAuth2LoginService.proccessOAuth2Login(code).accessToken();
-        String redirectUrl = "http://localhost:5173/main?token=" + token;
-        response.sendRedirect(redirectUrl);
-        return BaseResponse.success(SuccessCode.USER_LOGIN_SUCCESS);
+    @PostMapping("/public/login")
+    public BaseResponse<TokenDto> auth(@RequestBody KakaoLoginDto kakaoLoginDto) throws IOException {;
+        return BaseResponse.success(SuccessCode.USER_LOGIN_SUCCESS, oAuth2LoginService.proccessOAuth2Login(kakaoLoginDto));
     }
 }
