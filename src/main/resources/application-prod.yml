@@ -11,7 +11,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: create
     show-sql: true
@@ -63,3 +63,4 @@ server:
     key-store-type: pkcs12
     key-alias: tomcat
     enabled: true
+
