@@ -54,7 +54,6 @@ cloud:
       static: ${AWS_REGION}
     stack:
       auto: false
-
 iamport:
   apikey: ${IAMPORT_API_KEY}
   secretkey: ${IAMPORT_SECRET_KEY}
