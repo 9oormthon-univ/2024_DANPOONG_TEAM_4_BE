@@ -326,3 +326,27 @@ VALUES
     (214, 36, '파키라', '1화분', 15000),
     (215, 36, '목련', '1송이', 4500),
     (216, 36, '홍단심', '1송이', 3800);
+
+-- User 테이블 더미 데이터
+INSERT INTO User (user_id, user_name, user_password, user_nickname, authority, social_type, name, user_img)
+VALUES
+    (1, 'user1', 'password1', 'nickname1', 'ROLE_USER', 'KAKAO', 'User One', 'img1.jpg'),
+    (2, 'user2', 'password2', 'nickname2', 'ROLE_USER', 'KAKAO', 'User Two', 'img2.jpg'),
+    (3, 'user3', 'password3', 'nickname3', 'ROLE_USER', 'KAKAO', 'User Three', 'img3.jpg');
+
+-- Contract 테이블 더미 데이터
+INSERT INTO contract (contract_id, delivery_week, delivery_day, take_method, requested_term, total_price, status, user_id, enterprise_id)
+VALUES
+    (1, 1, 'Monday', 'PICKUP', '2023-01-01 to 2023-12-31', 100000, true, 1, 1),
+    (2, 2, 'Wednesday', 'DELIVERY', '2023-02-01 to 2023-11-30', 200000, false, 2, 2),
+    (3, 3, 'Friday', 'PICKUP', '2023-03-01 to 2023-10-31', 150000, true, 3, 3);
+
+-- ContractProducts 테이블 더미 데이터
+INSERT INTO contract_products (id, contract_id, product_product_id, product_name, quantity)
+VALUES
+    (1, 1, 186, '라벤더', 10),
+    (2, 1, 187, '국화', 20),
+    (3, 2, 188, '백합', 15),
+    (4, 2, 189, '카네이션', 25),
+    (5, 3, 190, '데이지', 30),
+    (6, 3, 191, '수선화', 35);
