@@ -21,25 +21,10 @@ import static com.univ.sohwakhaeng.global.common.exception.ErrorCode.PRODUCT_NOT
 @RequiredArgsConstructor
 public class ProductService {
 
-    private EnterpriseService enterpriseService;
-    private ProductRepository productRepository;
-    private AmazonS3Client amazonS3Client;
-    public ProductService(EnterpriseService enterpriseService, ProductRepository productRepository, AmazonS3Client amazonS3Client) {
-        this.enterpriseService = enterpriseService;
-        this.productRepository = productRepository;
-        this.amazonS3Client = amazonS3Client;
-    }
-
+    private final ProductRepository productRepository;
+    private final AmazonS3Client amazonS3Client;
     @Value("${cloud.aws.s3.bucket}")
     private String awsBucket;
-
-    public Void postProducts(List<ProductRequestDto> dtos) throws EnterpriseNotFoundException {
-        for (ProductRequestDto dto : dtos) {
-            Enterprise enterprise = enterpriseService.getEnterpriseEntityById(dto.enterpriseId());
-            saveProduct(Product.createProduct(dto, enterprise));
-        }
-        return null;
-    }
 
     public void saveProduct(Product product) {
         productRepository.save(product);
