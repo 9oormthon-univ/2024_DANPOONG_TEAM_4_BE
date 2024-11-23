@@ -1,14 +1,17 @@
 package com.univ.sohwakhaeng.global.common.advice;
 
 
+import com.univ.sohwakhaeng.enterprise.exception.EnterpriseNotFoundException;
 import com.univ.sohwakhaeng.global.common.dto.BaseResponse;
 import com.univ.sohwakhaeng.global.common.exception.ErrorCode;
 import com.univ.sohwakhaeng.global.common.exception.model.CustomException;
 import com.univ.sohwakhaeng.global.common.exception.model.RefreshTokenInvalidException;
+import com.univ.sohwakhaeng.payment.exception.PaymentFailException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
@@ -32,6 +35,13 @@ public class ControllerExceptionAdvice {
     /**
      * 400 BAD_REQUEST
      */
+    @ExceptionHandler(PaymentFailException.class)
+    public ResponseEntity<BaseResponse> handleEnterpriseNotFoundException() {
+        ErrorCode errorCode = ErrorCode.PAYMENT_FAIL;
+        BaseResponse response = BaseResponse.error(errorCode);
+        return new ResponseEntity<>(response, HttpStatusCode.valueOf(errorCode.getHttpStatusCode()));
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected BaseResponse handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
@@ -41,7 +51,7 @@ public class ControllerExceptionAdvice {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MissingRequestHeaderException.class)
+    @ExceptionHandler({MissingRequestHeaderException.class})
     protected BaseResponse handleMissingRequestHeaderException(final MissingRequestHeaderException e) {
         log.error("Missing Request Header: {}", e.getMessage());
         return BaseResponse.error(ErrorCode.VALIDATION_REQUEST_HEADER_MISSING_EXCEPTION, String.format("%s (%s)", ErrorCode.VALIDATION_REQUEST_HEADER_MISSING_EXCEPTION.getMessage(), e.getHeaderName()));

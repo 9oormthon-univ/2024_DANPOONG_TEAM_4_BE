@@ -21,6 +21,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven {url 'https://jitpack.io'}
 }
 
 dependencies {
@@ -43,6 +44,14 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+
+    // iamPort
+    implementation 'com.github.iamport:iamport-rest-client-java:0.2.22'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+
 }
 
 //tasks.named('test') {
