@@ -1,4 +1,4 @@
-package com.univ.sohwakhaeng.enterprise.api;
+package com.univ.sohwakhaeng.product.api;
 
 import com.univ.sohwakhaeng.enterprise.Category;
 import com.univ.sohwakhaeng.enterprise.api.dto.EnterpriseDetailDto;
@@ -9,6 +9,8 @@ import com.univ.sohwakhaeng.enterprise.service.EnterpriseService;
 import com.univ.sohwakhaeng.global.common.dto.BaseResponse;
 import com.univ.sohwakhaeng.global.common.dto.PagedResponseDto;
 import com.univ.sohwakhaeng.global.common.exception.SuccessCode;
+import com.univ.sohwakhaeng.product.api.dto.ProductRequestDto;
+import com.univ.sohwakhaeng.product.service.ProductService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,29 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class EnterpriseController {
+public class ProductController {
 
-    private final EnterpriseService enterPriseService;
+    private final ProductService productService;
 
-    @PostMapping("/public/enterprises")
-    public BaseResponse<Void> postEnterprises(@RequestBody List<EnterpriseRequestDto> dtos) throws EnterpriseNotFoundException {
+    @PostMapping("/public/products")
+    public BaseResponse<Void> postProducts(@RequestBody List<ProductRequestDto> dtos) throws EnterpriseNotFoundException {
         return BaseResponse.success(
-                SuccessCode.GET_ENTERPRISE_DETAILS, enterPriseService.postEnterprises(dtos));
+                SuccessCode.GET_ENTERPRISE_DETAILS, productService.postProducts(dtos));
     }
 
-    @GetMapping("/api/enterprises/{enterPriseId}")
-    public BaseResponse<EnterpriseDetailDto> getEnterpriseDetails(@PathVariable Long enterPriseId) throws EnterpriseNotFoundException {
-        return BaseResponse.success(
-                SuccessCode.GET_ENTERPRISE_DETAILS, enterPriseService.getEnterpriseDetails(enterPriseId));
-    }
-
-    @GetMapping("/api/enterprises/category/{category}")
-    public BaseResponse<PagedResponseDto<EnterpriseOverviewDto>> getEnterprisesByCategory(
-            @PathVariable Category category,
-            @RequestParam int size,
-            @RequestParam int limit
-    ){
-        return BaseResponse.success(
-                SuccessCode.GET_ENTERPRISE_OVERVIEW, enterPriseService.getEnterprisesByCategory(category, PageRequest.of(limit, size)));
-    }
 }

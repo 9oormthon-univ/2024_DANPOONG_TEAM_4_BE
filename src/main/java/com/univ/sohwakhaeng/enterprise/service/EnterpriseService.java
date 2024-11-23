@@ -5,11 +5,13 @@ import com.univ.sohwakhaeng.enterprise.Category;
 import com.univ.sohwakhaeng.enterprise.Enterprise;
 import com.univ.sohwakhaeng.enterprise.api.dto.EnterpriseDetailDto;
 import com.univ.sohwakhaeng.enterprise.api.dto.EnterpriseOverviewDto;
+import com.univ.sohwakhaeng.enterprise.api.dto.EnterpriseRequestDto;
 import com.univ.sohwakhaeng.enterprise.exception.EnterpriseNotFoundException;
 import com.univ.sohwakhaeng.enterprise.repository.EnterpriseRepository;
 import com.univ.sohwakhaeng.global.common.dto.PagedResponseDto;
 import com.univ.sohwakhaeng.product.Product;
 import com.univ.sohwakhaeng.product.service.ProductService;
+import java.util.List;
 import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +31,17 @@ public class EnterpriseService {
     private final AmazonS3Client amazonS3Client;
     @Value("${cloud.aws.s3.bucket}")
     private String awsBucket;
+
+    public Void postEnterprises(List<EnterpriseRequestDto> dtos) {
+        for(EnterpriseRequestDto dto : dtos) {
+            saveEnterprise(Enterprise.createEnterprise(dto));
+        }
+        return null;
+    }
+
+    public void saveEnterprise(Enterprise enterprise) {
+        enterpriseRepository.save(enterprise);
+    }
 
     @Transactional(readOnly = true)
     public EnterpriseDetailDto getEnterpriseDetails(Long enterpriseId) throws EnterpriseNotFoundException {

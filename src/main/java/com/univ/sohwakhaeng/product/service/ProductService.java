@@ -1,9 +1,15 @@
 package com.univ.sohwakhaeng.product.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.univ.sohwakhaeng.enterprise.Enterprise;
+import com.univ.sohwakhaeng.enterprise.exception.EnterpriseNotFoundException;
+import com.univ.sohwakhaeng.enterprise.service.EnterpriseService;
 import com.univ.sohwakhaeng.product.Product;
+import com.univ.sohwakhaeng.product.api.dto.ProductRequestDto;
+import com.univ.sohwakhaeng.product.api.dto.ProductResponseDto;
 import com.univ.sohwakhaeng.product.exception.ProductNotFoundException;
 import com.univ.sohwakhaeng.product.repository.ProductRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,10 +21,29 @@ import static com.univ.sohwakhaeng.global.common.exception.ErrorCode.PRODUCT_NOT
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final ProductRepository productRepository;
-    private final AmazonS3Client amazonS3Client;
+    private EnterpriseService enterpriseService;
+    private ProductRepository productRepository;
+    private AmazonS3Client amazonS3Client;
+    public ProductService(EnterpriseService enterpriseService, ProductRepository productRepository, AmazonS3Client amazonS3Client) {
+        this.enterpriseService = enterpriseService;
+        this.productRepository = productRepository;
+        this.amazonS3Client = amazonS3Client;
+    }
+
     @Value("${cloud.aws.s3.bucket}")
     private String awsBucket;
+
+    public Void postProducts(List<ProductRequestDto> dtos) throws EnterpriseNotFoundException {
+        for (ProductRequestDto dto : dtos) {
+            Enterprise enterprise = enterpriseService.getEnterpriseEntityById(dto.enterpriseId());
+            saveProduct(Product.createProduct(dto, enterprise));
+        }
+        return null;
+    }
+
+    public void saveProduct(Product product) {
+        productRepository.save(product);
+    }
 
     @Transactional(readOnly = true)
     public Product getProductById(Long id) throws ProductNotFoundException {
