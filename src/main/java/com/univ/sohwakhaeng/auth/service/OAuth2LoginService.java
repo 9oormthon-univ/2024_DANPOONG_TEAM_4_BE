@@ -31,12 +31,10 @@ public class OAuth2LoginService {
 
     private TokenDto authenticateUser(KakaoLoginDto kakaoLoginDto) {
         User user = getUserDomain(kakaoLoginDto);
-
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(),
                         kakaoLoginDto.providerId() + kakaoLoginDto.nickname())
         );
-
         return tokenProvider.generateTokenDto(authentication);
     }
 
